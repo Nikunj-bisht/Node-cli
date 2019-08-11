@@ -1,0 +1,145 @@
+<html>
+<style>
+  body{
+    height:800px;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-image:url("7.jpg");
+
+margin: 100px;
+    background-size: 1900px 1000px;
+background-repeat: no-repeat;
+  color:white;
+
+  }
+  .location,.temperature{
+    height:30vh;
+    width:50%;
+    display:flex;
+justify-content: space-around;
+align-items: center;
+  }
+.temperature{
+
+  display:flex;
+  flex-direction: column;
+}
+.degree{
+  display: flex;
+  align-items: center;
+cursor: pointer;
+}
+ .tempdegree, span{
+   font-size: 40px;
+   margin:10px;
+ }
+ .degree:hover{
+   text-decoration: underline;
+ }
+ .weather{
+   font-size: 40px;
+   cursor: pointer;
+ }
+ .weather:hover{
+   text-decoration: underline;
+ }
+ .h2{
+   font-size: 40px;
+   font-style: italic;
+   text-align: center;
+ }
+ .pre{
+   font-size: 30px;
+ }
+ h3{
+   font-size: 50px;
+   text-align: center;
+ }
+
+
+  </style>
+  <body>
+<h3>Weather Report<hr color:"white"></h3>
+
+
+<div class="location">
+
+<h1 class="timezone">location</h1>
+<canvas class="icon" width="328" height="228"></canvas>
+</div>
+<div class="temperature">
+
+  <div class="degree">
+  <h1 class="tempdegree">34</h1>
+  <span>F</span></div>
+<div class="weather">The climate will arrive here
+
+</div>
+<div class="pre">Pressure</div>
+</div>
+
+</body>
+
+  <script src="skycons.js"></script>
+  <script>
+window.addEventListener("load",()=>{
+  let long;
+  let lat;
+  let tempdegree=document.querySelector(".tempdegree");
+  let timezone=document.querySelector(".timezone");
+  let weather=document.querySelector(".weather");
+  let h2=document.querySelector(".h2");
+let pre=document.querySelector(".pre");
+let degree=document.querySelector(".degree");
+let tempspan=document.querySelector(".degree span");
+if(navigator.geolocation){
+navigator.geolocation.getCurrentPosition(position=>{
+  long=position.coords.longitude;
+  lat=position.coords.latitude;
+  const proxy='https://cors-anywhere.herokuapp.com/';
+  const api=`${proxy}https://api.darksky.net/forecast/12511ba6223402e8acae5a9803149b40/${lat},${long}`;
+  fetch(api)
+  .then(response =>{
+    return response.json();
+    })
+    .then(data =>{
+      console.log(data);
+      const {temperature,summary,icon,pressure}=data.currently;
+
+      tempdegree.innerHTML=temperature;
+      weather.innerHTML=summary;
+      timezone.innerHTML=data.timezone;
+      console.log(pressure);
+      pre.innerHTML=pressure;
+      setIcons(icon,document.querySelector(".icon"));
+
+
+      degree.addEventListener('click',function(){
+        if(tempspan.innerHTML=="F"){
+        tempdegree.innerHTML=Math.floor((temperature-32)*(5/9));
+        tempspan.innerHTML="C";
+      }
+      else{
+        tempspan.innerHTML="F";
+        tempdegree.innerHTML=temperature;
+      }
+        })
+      });
+  });
+
+}
+
+function setIcons(icon,iconID){
+  var skycons = new Skycons({"color": "white"});
+  var currentIcon=icon.replace(/-/g,"_").toUpperCase();
+  skycons.play();
+  return skycons.set(iconID,Skycons[currentIcon]);
+}
+
+  });
+
+
+    </script>
+    </html>
