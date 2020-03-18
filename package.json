@@ -1,0 +1,49 @@
+{
+  "name": "ele",
+  "version": "1.0.0",
+  "description": "electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+
+    "dist": "build"
+  },
+  "author": "nikunj",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^8.1.1"
+  },
+  "build": {
+    "appId": "yourappid",
+    "category": "your.app.category.type",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "build/icon.ico"
+    }
+  },
+  "devDependencies": {
+    "electron-builder": "^22.4.1",
+    "electron-installer-debian": "^3.0.0",
+    "electron-packager": "^14.2.1"
+  }
+}
