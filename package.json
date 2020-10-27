@@ -1,0 +1,21 @@
+{
+  "name": "clinode",
+  "version": "1.0.0",
+  "description": "My cli",
+  "main": "index.js",
+  "preferGlobal": true,
+  "bin": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nikunj",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^6.2.0",
+    "inquirer": "^7.3.3",
+    "mongoose": "^5.10.10"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^7.3.1"
+  }
+}
